@@ -15,16 +15,18 @@
 <body ng-app="ecommerce" ng-controller="ecommerceCrtl">
     <div class="container">
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action" ng-repeat="user in data">
+            <button href="#" class="list-group-item list-group-item-action" ng-repeat="user in data">
 
                 <h1 class="list-group-item-heading">{{user.name}}</h1>
                 <h1 class="list-group-item-heading">
                     {{user.email}}
-                    <img class="pull-right" src="{{user.avatar}}" height="50" width="50" />
-
                 </h1>
 
-            </a>
+                <img class="pull-right" src="{{user.avatar}}" height="100" width="100" />
+
+
+
+            </button>
         </div>
 
 
