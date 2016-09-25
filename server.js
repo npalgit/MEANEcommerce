@@ -28,8 +28,8 @@ mailer.extend(app, {
     port: 465, // port for secure SMTP 
     transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts 
     auth: {
-        user: 'npal@eshipglobal.com',
-        pass: 'Eshipglobal1'
+        user: '',
+        pass: ''
     }
 });
 
