@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+</head>
+
+<body ng-app="ecommerce" ng-controller="ecommerceCrtl">
+    <div class="container">
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action" ng-repeat="user in data">
+
+                <h1 class="list-group-item-heading">{{user.name}}</h1>
+                <h1 class="list-group-item-heading">
+                    {{user.email}}
+                    <img class="pull-right" src="{{user.avatar}}" height="50" width="50" />
+
+                </h1>
+
+            </a>
+        </div>
+
+
+
+        
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add User</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add new user</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" ng-model="user">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="name" ng-model="name" placeholder="Enter name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="pwd">Password:</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="email">Email:</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="avat">Avatar:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="avatar" placeholder="Enter avatar" ng-model="avatar">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default" ng-click="addUser()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+
+<script>
+    angular.module('ecommerce', [])
+        .controller('ecommerceCrtl',function ($scope,$http) {
+            $http.get('/user').then( function (res, err) {
+                $scope.data = res.data;
+                console.log(res.data);
+            });
+
+            $scope.addUser = function () {
+                var user = {};
+                user.name = $scope.name;
+                user.password = $scope.password;
+                user.email = $scope.email;
+                user.avatar = $scope.avatar;
+                $http.post('/user',user).then(function (res, err) {
+                    console.log(user +"successfully posted");
+                });
+            }
+        });
+    
+</script>
+</html>
